@@ -16,7 +16,7 @@ const DirectoryScreen = ({ navigation }) => {
             <View>
                 <Text>{campsites.errMess}</Text>
             </View>
-        )
+        );
     }
 
 
