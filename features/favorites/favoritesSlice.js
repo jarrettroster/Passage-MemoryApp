@@ -11,7 +11,7 @@ const favoritesSlice = createSlice({
             } else {
                 favorites.push(action.payload);
             }
-        } 
+        }
     }
 });
 
