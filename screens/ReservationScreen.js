@@ -34,7 +34,7 @@ const ReservationScreen = () => {
                   onPress: () => {}
                 }
               ],
-              { cancelable: false }    
+              { cancelable: false }   
         )
     };
 
