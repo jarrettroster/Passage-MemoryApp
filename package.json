@@ -1,5 +1,5 @@
 {
-  "name": "nucampsite",
+  "name": "bible-memory",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -19,6 +19,7 @@
     "@react-navigation/native": "5.9.8",
     "@react-navigation/stack": "5.14.9",
     "@reduxjs/toolkit": "1.9.2",
+    "axios": "^1.4.0",
     "expo": "~47.0.12",
     "expo-constants": "~14.0.2",
     "expo-image-manipulator": "~11.0.0",

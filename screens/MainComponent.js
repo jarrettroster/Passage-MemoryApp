@@ -21,6 +21,7 @@ import { fetchPromotions } from '../features/promotions/promotionsSlice';
 import { fetchComments } from '../features/comments/commentsSlice';
 import ReservationScreen from './ReservationScreen';
 import FavoritesScreen from './FavoritesScreen';
+import BibleScreen from './BibleScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -141,6 +142,29 @@ const FavoritesNavigator = () => {
     );
 };
 
+const BibleNavigator = () => {
+    const Stack = createStackNavigator();
+    return (
+        <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Screen
+                name='Favorites'
+                component={BibleScreen}
+                options={({ navigation }) => ({
+                    title: 'Bible',
+                    headerLeft: () => (
+                        <Icon
+                            name='book'
+                            type='font-awesome'
+                            iconStyle={styles.stackIcon}
+                            onPress={() => navigation.toggleDrawer()}
+                        />
+                    )
+                })}
+            />
+        </Stack.Navigator>
+    );
+};
+
 const DirectoryNavigator = () => {
     const Stack = createStackNavigator();
     return (
@@ -181,7 +205,7 @@ const CustomDrawerContent = (props) => (
                 <Image source={logo} style={styles.drawerImage} />
             </View>
             <View style={{ flex: 2 }}>
-                <Text style={styles.drawerHeaderText}>NuCamp</Text>
+                <Text style={styles.drawerHeaderText}>Bible Memory</Text>
             </View>
         </View>
         <DrawerItemList {...props} labelStyle={{ fontWeight: 'bold' }} />
@@ -260,13 +284,13 @@ const Main = () => {
                     }}
                 />
                 <Drawer.Screen
-                    name='Favorites'
-                    component={FavoritesNavigator}
+                    name='Bible'
+                    component={BibleNavigator}
                     options={{
-                        title: 'My Favorites',
+                        title: 'Ephesians',
                         drawerIcon: ({ color }) => (
                             <Icon
-                                name='heart'
+                                name='book'
                                 type='font-awesome'
                                 size={24}
                                 iconStyle={{ width: 24 }}
@@ -314,7 +338,7 @@ const Main = () => {
 
 const styles = StyleSheet.create({
     drawerHeader: {
-        backgroundColor: '#5637DD',
+        backgroundColor: '#5491AB',
         height: 140,
         alignItems: 'center',
         justifyContent: 'center',
