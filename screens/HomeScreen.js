@@ -23,20 +23,25 @@ const FeaturedItem = (props) => {
     if (item) {
         return (
             <Card containerStyle={{ padding: 0 }}>
-                <Card.Image source={{ uri: baseUrl + item.image }}>
-                    <View style={{ justifyContent: 'center', flex: 1 }}>
+                <Card.Image source={{ uri: baseUrl }}>
+                    <View style={{ justifyContent: 'center', flex: 2 }}>
                         <Text
                             style={{
-                                color: 'white',
+                                color: 'black',
                                 textAlign: 'center',
-                                fontSize: 20
+                                fontSize: 26,
                             }}
-                        >
+                            >
                             {item.name}
                         </Text>
                     </View>
                 </Card.Image>
-                <Text style={{ margin: 20 }}>{item.description}</Text>
+                <Text 
+                    style={{ 
+                        margin: 20,
+                        paddingTop: 60
+                     }}
+                    >{item.description}</Text>
             </Card>
         );
     }
@@ -59,6 +64,7 @@ const HomeScreen = () => {
         (item) => item.featured
     );
     const featPartner = partners.partnersArray.find((item) => item.featured);
+    // const featEphesians = partners.partnersArray.find((item) => item.featured);
 
     useEffect(() => {
         scaleAnimation.start(); 
@@ -70,16 +76,6 @@ const HomeScreen = () => {
                 item={featCampsite}
                 isLoading={campsites.isLoading}
                 errMess={campsites.errMess}
-            />
-            <FeaturedItem 
-                item={featPromotion}
-                isLoading={promotions.isLoading}
-                errMess={promotions.errMess}
-            />
-            <FeaturedItem 
-                item={featPartner}
-                isLoading={partners.isLoading}
-                errMess={partners.errMess} 
             />
         </Animated.ScrollView>
     );

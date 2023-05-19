@@ -27,7 +27,7 @@ const Drawer = createDrawerNavigator();
 
 const screenOptions = {
     headerTintColor: '#fff',
-    headerStyle: { backgroundColor: '#5637DD' }
+    headerStyle: { backgroundColor: '#5491AB' }
 };
 
 const HomeNavigator = () => {
@@ -150,7 +150,7 @@ const BibleNavigator = () => {
                 name='Favorites'
                 component={BibleScreen}
                 options={({ navigation }) => ({
-                    title: 'Bible',
+                    title: 'Ephesians',
                     headerLeft: () => (
                         <Icon
                             name='book'
@@ -233,7 +233,7 @@ const Main = () => {
             <Drawer.Navigator
                 initialRouteName='Home'
                 drawerContent={CustomDrawerContent}
-                drawerStyle={{ backgroundColor: '#CEC8FF' }}
+                drawerStyle={{ backgroundColor: '#fff' }}
             >
                 <Drawer.Screen
                     name='Home'
