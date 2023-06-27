@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "bible-memory",
-    "slug": "bible-memory",
+    "name": "Passage",
+    "slug": "Passage",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
