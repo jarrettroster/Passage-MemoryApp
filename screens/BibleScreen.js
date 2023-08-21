@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { getEsvText } from '../utils/api';
-import { ScrollView } from 'react-native-gesture-handler';
 import * as Font from 'expo-font';
 
 const loadFonts = async () => {
@@ -10,15 +9,24 @@ const loadFonts = async () => {
   });
 };
 
-const BibleScreen = () => {
+const BibleScreen = ({ route }) => { // Accept the navigation route as a prop
+  const { bookTitle } = route.params || {}; // Extract the book title from the route params
+  console.log(bookTitle);
   const [passageText, setPassageText] = useState('');
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
     const fetchPassage = async () => {
-      const passage = 'Ephesians 1'; // Replace with your desired passage
-      const text = await getEsvText(passage);
-      setPassageText(text);
+      if (!bookTitle) {
+        return; // Exit early if bookTitle is not provided
+      }
+
+      try {
+        const text = await getEsvText(bookTitle); // Use the getEsvText function
+        setPassageText(text);
+      } catch (error) {
+        setPassageText('Error: Failed to fetch passage');
+      }
     };
 
     const loadAppFonts = async () => {
@@ -28,16 +36,16 @@ const BibleScreen = () => {
 
     loadAppFonts();
     fetchPassage();
-  }, []);
+  }, [bookTitle]);
 
   if (!fontsLoaded) {
     return null; // or a loading component
   }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.viewItem}>
       <View>
-        <Text style={styles.bookTitle}>Ephesians</Text>
+        <Text style={styles.bookTitle}>{bookTitle}</Text>
       </View>
       <View style={styles.verseItem}>
         <Text style={styles.verseText}>{passageText}</Text>
@@ -47,24 +55,31 @@ const BibleScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF', // Set the background color here
+  },
+  viewItem: {
+      flex: 1,
+    backgroundColor: '#FFF'
+  },
   verseItem: {
+    width: '90%', // Adjust the width as needed
+    alignSelf: 'center', // Center the component horizontally
     textAlign: 'center',
-    backgroundColor: '#fffff',
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#010335',
-    padding: 10,
-    paddingLeft: 35,
-    paddingRight: 35,
   },
   verseText: {
     fontSize: 18,
     fontFamily: 'GoudyBookletter1911',
+    backgroundColor: '#FFF',
   },
   bookTitle: {
     fontSize: 40,
-    backgroundColor: '#F0FBFE',
+    backgroundColor: '#fff',
     padding: 80,
+    fontFamily: 'GoudyBookletter1911',
     flex: 1,
   },
 });

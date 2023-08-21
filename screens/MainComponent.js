@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import CampsiteInfoScreen from './CampsiteInfoScreen';
-import DirectoryScreen from './DirectoryScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
   createDrawerNavigator,
@@ -26,9 +25,8 @@ const Drawer = createDrawerNavigator();
 
 const screenOptions = {
   headerTintColor: '#010335',
-  headerStyle: { backgroundColor: '#fff' },
+  headerStyle: { backgroundColor: '#B2ECFF' },
 };
-
 
 const HomeNavigator = () => {
   const Stack = createStackNavigator();
@@ -126,10 +124,10 @@ const BibleNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen
-        name='Favorites'
+        name='BibleScreen'
         component={BibleScreen}
-        options={({ navigation }) => ({
-          title: 'Ephesians',
+        options={({ route, navigation }) => ({
+          title: route.params.bookTitle || 'Bible',
           headerLeft: () => (
             <Icon
               name='book'
@@ -144,47 +142,19 @@ const BibleNavigator = () => {
   );
 };
 
-const DirectoryNavigator = () => {
-  const Stack = createStackNavigator();
-  return (
-    <Stack.Navigator initialRouteName='Directory' screenOptions={screenOptions}>
-      <Stack.Screen
-        name='Directory'
-        component={DirectoryScreen}
-        options={({ navigation }) => ({
-          title: 'Book Directory',
-          headerLeft: () => (
-            <Icon
-              name='list'
-              type='font-awesome'
-              iconStyle={styles.stackIcon}
-              onPress={() => navigation.toggleDrawer()}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name='CampsiteInfo'
-        component={CampsiteInfoScreen}
-        options={({ route }) => ({
-          title: route.params.campsite.name,
-        })}
-      />
-    </Stack.Navigator>
-  );
-};
-
 const CustomDrawerContent = (props) => (
     <DrawerContentScrollView
       {...props}
-      style={{ backgroundColor: '#ffffff' }} // Set the background color of the drawer content
+      style={{ backgroundColor: '#B2ECFF' }} // Set the background color of the drawer content
     >
       <View style={styles.drawerHeader}>
         <View style={{ flex: 1 }}>
           <Image source={logo} style={styles.drawerImage} />
         </View>
-        <View style={{ flex: 2 }}>
-          <Text style={styles.drawerHeaderText}>Passage</Text>
+        <View style={{ flex: 3 }}>
+          <Image source={require('../assets/Passage.png')}
+          style={{ width: 175, height: 60 }}
+           />
         </View>
       </View>
       <DrawerItemList {...props} labelStyle={{ fontWeight: 'bold' }} />
@@ -207,13 +177,13 @@ const Main = () => {
       style={{
         flex: 1,
         paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight,
-        backgroundColor: '#fffff', // Set the background color of the main container
+        backgroundColor: '#B2ECFF', // Set the background color of the main container
       }}
     >
       <Drawer.Navigator
         initialRouteName='Home'
         drawerContent={CustomDrawerContent}
-        drawerStyle={{ backgroundColor: '#fffff' }} // Set the background color of the drawer
+        drawerStyle={{ backgroundColor: '#B2ECFF' }} // Set the background color of the drawer
       >
         <Drawer.Screen
           name='Home'
@@ -232,26 +202,10 @@ const Main = () => {
           }}
         />
         <Drawer.Screen
-          name='Directory'
-          component={DirectoryNavigator}
-          options={{
-            title: 'Book Directory',
-            drawerIcon: ({ color }) => (
-              <Icon
-                name='list'
-                type='font-awesome'
-                size={24}
-                iconStyle={{ width: 24 }}
-                color={color}
-              />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name='Reserve Campsite'
+          name='Bookmarked Verses'
           component={ReservationNavigator}
           options={{
-            title: 'Reserve Campsite',
+            title: 'Bookmarked Verses',
             drawerIcon: ({ color }) => (
               <Icon
                 name='bookmark'
@@ -267,7 +221,7 @@ const Main = () => {
           name='Bible'
           component={BibleNavigator}
           options={{
-            title: 'Ephesians',
+            title: 'Bible',
             drawerIcon: ({ color }) => (
               <Icon
                 name='book'
@@ -317,8 +271,11 @@ const Main = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#B2ECFF', // Set the background color here
+  },
   drawerHeader: {
-    backgroundColor: '#fff',
+    backgroundColor: '#B2ECFF',
     height: 140,
     alignItems: 'center',
     justifyContent: 'center',
@@ -326,14 +283,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   drawerHeaderText: {
-    color: '#010335',
+    color: '#B2ECFF',
     fontSize: 24,
     fontWeight: 'bold'
   },
   drawerImage: {
     margin: 10,
     height: 30,
-    width: 30,
+    width: 20,
   },
   stackIcon: {
     marginLeft: 10,
