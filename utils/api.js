@@ -6,7 +6,7 @@ const API_URL = 'https://api.esv.org/v3/passage/text/';
 export async function getEsvText(passage) {
   const params = {
     q: passage,
-    'include-headings': true,
+    'include-headings': false,
     'include-footnotes': false,
     'include-verse-numbers': true,
     'include-short-copyright': false,
